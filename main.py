@@ -56,16 +56,17 @@ def main():
 
         # Handle input
         key = get_key()
-        if key == 'q':
-            break
-        elif key == 'h':  # Left
-            game.move_piece(-1, 0)
-        elif key == 'l':  # Right
-            game.move_piece(1, 0)
-        elif key == 'k':  # Rotate
-            game.rotate_piece()
-        elif key == 'j':  # Down
-            game.move_piece(0, 1)
+        if key:  # Only process if we actually got a key
+            if key == 'q':
+                break
+            elif key == 'h':  # Left
+                game.move_piece(-1, 0)
+            elif key == 'l':  # Right
+                game.move_piece(1, 0)
+            elif key == 'k':  # Rotate
+                game.rotate_piece()
+            elif key == 'j':  # Down
+                game.move_piece(0, 1)
 
         # Automatic falling
         current_time = time.time()
