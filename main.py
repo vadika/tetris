@@ -29,9 +29,9 @@ def main():
     fall_speed = 0.5  # Time in seconds between automatic drops
 
     print("\nTetris Controls:")
-    print("←/→: Move left/right")
-    print("↑: Rotate piece")
-    print("↓: Soft drop")
+    print("h/l: Move left/right")
+    print("k: Rotate piece")
+    print("j: Soft drop")
     print("q: Quit game\n")
     print("Press any key to start...")
     input()
@@ -41,14 +41,14 @@ def main():
         
         # Display game board and score
         print(f"Score: {game.score}")
-        print("┌" + "────" * game.width + "┐")
+        print("[" + "    " * game.width + "]")
         display = game.get_display_board()
         for row in display:
-            print("│", end="")
+            print("[", end="")
             for cell in row:
                 print(COLORS[cell], end="")
-            print("│")
-        print("└" + "────" * game.width + "┘")
+            print("]")
+        print("[" + "    " * game.width + "]")
 
         if game.game_over:
             print("\nGame Over!")
@@ -58,22 +58,14 @@ def main():
         key = get_key()
         if key == 'q':
             break
-        elif key == '\x1b':
-            # Handle arrow keys
-            try:
-                next_char = sys.stdin.read(1)
-                if next_char == '[':
-                    next_char = sys.stdin.read(1)
-                    if next_char == 'A':  # Up arrow
-                        game.rotate_piece()
-                    elif next_char == 'B':  # Down arrow
-                        game.move_piece(0, 1)
-                    elif next_char == 'C':  # Right arrow
-                        game.move_piece(1, 0)
-                    elif next_char == 'D':  # Left arrow
-                        game.move_piece(-1, 0)
-            except:
-                pass
+        elif key == 'h':  # Left
+            game.move_piece(-1, 0)
+        elif key == 'l':  # Right
+            game.move_piece(1, 0)
+        elif key == 'k':  # Rotate
+            game.rotate_piece()
+        elif key == 'j':  # Down
+            game.move_piece(0, 1)
 
         # Automatic falling
         current_time = time.time()
