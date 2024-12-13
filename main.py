@@ -41,14 +41,14 @@ def main():
         
         # Display game board and score
         print(f"Score: {game.score}")
-        print("┌" + "──" * game.width + "┐")
+        print("┌" + "────" * game.width + "┐")
         display = game.get_display_board()
         for row in display:
             print("│", end="")
             for cell in row:
                 print(COLORS[cell], end="")
             print("│")
-        print("└" + "──" * game.width + "┘")
+        print("└" + "────" * game.width + "┘")
 
         if game.game_over:
             print("\nGame Over!")
