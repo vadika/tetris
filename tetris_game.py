@@ -16,15 +16,15 @@ SHAPES = [
 ]
 
 COLORS = {
-    0: '  ',    # Empty space needs two spaces
-    1: '🟦 ',   # I piece
-    2: '🟨 ',   # J piece
-    3: '🟧 ',   # L piece
-    4: '🟥 ',   # O piece
-    5: '🟩 ',   # S piece
-    6: '🟪 ',   # T piece
-    7: '⬜️ ',   # Z piece
-    8: '⬛️ '    # Landed pieces
+    0: '    ',  # Empty space needs four spaces
+    1: '[]  ',  # I piece
+    2: '[]  ',  # J piece
+    3: '[]  ',  # L piece
+    4: '[]  ',  # O piece
+    5: '[]  ',  # S piece
+    6: '[]  ',  # T piece
+    7: '[]  ',  # Z piece
+    8: '[]  '   # Landed pieces
 }
 
 class TetrisGame:
