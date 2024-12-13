@@ -7,16 +7,14 @@ from tetris_game import TetrisGame, COLORS
 
 def get_key() -> str:
     """Get a single keypress without blocking."""
-    def is_data():
-        return select.select([sys.stdin], [], [], 0) == ([sys.stdin], [], [])
-
-    old_settings = termios.tcgetattr(sys.stdin)
-    try:
-        tty.setcbreak(sys.stdin.fileno())
-        if is_data():
-            return sys.stdin.read(1)
-    finally:
-        termios.tcsetattr(sys.stdin, termios.TCSADRAIN, old_settings)
+    if select.select([sys.stdin], [], [], 0)[0] == [sys.stdin]:
+        old_settings = termios.tcgetattr(sys.stdin)
+        try:
+            tty.setraw(sys.stdin.fileno())
+            key = sys.stdin.read(1)
+        finally:
+            termios.tcsetattr(sys.stdin, termios.TCSADRAIN, old_settings)
+        return key
     return ''
 
 def clear_screen():
