@@ -60,15 +60,20 @@ def main():
             break
         elif key == '\x1b':
             # Handle arrow keys
-            next_two = sys.stdin.read(2)
-            if next_two == '[A':  # Up arrow
-                game.rotate_piece()
-            elif next_two == '[B':  # Down arrow
-                game.move_piece(0, 1)
-            elif next_two == '[C':  # Right arrow
-                game.move_piece(1, 0)
-            elif next_two == '[D':  # Left arrow
-                game.move_piece(-1, 0)
+            try:
+                next_char = sys.stdin.read(1)
+                if next_char == '[':
+                    next_char = sys.stdin.read(1)
+                    if next_char == 'A':  # Up arrow
+                        game.rotate_piece()
+                    elif next_char == 'B':  # Down arrow
+                        game.move_piece(0, 1)
+                    elif next_char == 'C':  # Right arrow
+                        game.move_piece(1, 0)
+                    elif next_char == 'D':  # Left arrow
+                        game.move_piece(-1, 0)
+            except:
+                pass
 
         # Automatic falling
         current_time = time.time()
