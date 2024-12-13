@@ -43,13 +43,23 @@ def main():
         
         # Display game board and score
         print(f"Score: {game.score}")
-        print("+" + "-" * (game.width * 2) + "+")
+        print("+" + "-" * (game.width * 2) + "+    Next Piece:")
         display = game.get_display_board()
-        for row in display:
+        next_piece = game.get_next_piece_display()
+        
+        for i, row in enumerate(display):
             print("|", end="")
             for cell in row:
                 print(COLORS[cell], end="")
-            print("|")
+            print("|", end="")
+            
+            # Show next piece preview to the right
+            if i < 4:
+                print("    ", end="")
+                for cell in next_piece[i]:
+                    print(COLORS[cell], end="")
+            print()
+            
         print("+" + "-" * (game.width * 2) + "+")
 
         if game.game_over:

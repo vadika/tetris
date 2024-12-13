@@ -33,18 +33,36 @@ class TetrisGame:
         self.width = width
         self.board = [[0] * width for _ in range(height)]
         self.current_piece = None
+        self.next_piece = None
         self.current_pos = None
         self.game_over = False
         self.score = 0
         self.spawn_piece()
 
     def spawn_piece(self) -> None:
-        self.current_piece = random.choice(SHAPES)
+        if self.next_piece is None:
+            self.next_piece = random.choice(SHAPES)
+        self.current_piece = self.next_piece
+        self.next_piece = random.choice(SHAPES)
         piece_width = len(self.current_piece[0])
         self.current_pos = [0, self.width // 2 - piece_width // 2]
         
         if self.check_collision():
             self.game_over = True
+
+    def get_next_piece_display(self) -> List[List[str]]:
+        """Returns a 4x4 display grid for the next piece."""
+        display = [[0] * 4 for _ in range(4)]
+        if self.next_piece:
+            piece_height = len(self.next_piece)
+            piece_width = len(self.next_piece[0])
+            start_y = (4 - piece_height) // 2
+            start_x = (4 - piece_width) // 2
+            for y, row in enumerate(self.next_piece):
+                for x, cell in enumerate(row):
+                    if cell:
+                        display[start_y + y][start_x + x] = cell
+        return display
 
     def check_collision(self) -> bool:
         for y, row in enumerate(self.current_piece):
