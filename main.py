@@ -41,7 +41,7 @@ def main():
         
         # Display game board and score
         print(f"Score: {game.score}")
-        print("+" + "-" * (game.width * 4) + "+")
+        print("+" + "-" * (game.width * 2) + "+")
         display = game.get_display_board()
         for row in display:
             print("|", end="")
