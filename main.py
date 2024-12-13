@@ -7,14 +7,17 @@ from tetris_game import TetrisGame, COLORS
 
 def get_key() -> str:
     """Get a single keypress without blocking."""
-    old_settings = termios.tcgetattr(sys.stdin)
-    try:
-        tty.setraw(sys.stdin.fileno())
-        if select.select([sys.stdin], [], [], 0)[0] == [sys.stdin]:
+    if select.select([sys.stdin], [], [], 0)[0] == [sys.stdin]:
+        old_settings = termios.tcgetattr(sys.stdin)
+        try:
+            tty.setraw(sys.stdin.fileno())
             key = sys.stdin.read(1)
+            if key == '\x03':  # Handle Ctrl+C
+                raise KeyboardInterrupt
             return key
-    finally:
-        termios.tcsetattr(sys.stdin, termios.TCSADRAIN, old_settings)
+        finally:
+            termios.tcsetattr(sys.stdin, termios.TCSADRAIN, old_settings)
+            sys.stdin.flush()
     return ''
 
 def clear_screen():
