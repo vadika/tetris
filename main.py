@@ -50,7 +50,7 @@ def main():
             for cell in row:
                 print(COLORS[cell], end="")
             print("|")
-        print("+" + "-" * (game.width * 4) + "+")
+        print("+" + "-" * (game.width * 2) + "+")
 
         if game.game_over:
             print("\nGame Over!")
